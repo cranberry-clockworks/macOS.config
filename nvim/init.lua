@@ -115,11 +115,11 @@ end
 
 require("lazy").setup({
   {
-    "bluz71/vim-moonfly-colors",
+    "savq/melange-nvim",
     lazy = false,
     priority = 1000,
     config = function()
-      vim.cmd("colorscheme moonfly")
+      vim.cmd("colorscheme melange")
     end,
   },
   {
@@ -172,12 +172,38 @@ require("lazy").setup({
     end,
   },
   {
+    "stevearc/oil.nvim",
+    keys = {
+      {
+        "<leader>fe",
+        function()
+          require("oil").open()
+        end,
+        desc = "Browse [f]iles [e]xplore around current one",
+      },
+      {
+        "<leader>fc",
+        function()
+          require("oil").open(vim.fn.getcwd())
+        end,
+        desc = "Browse [f]iles in [c]urrent working directory",
+      },
+    },
+    lazy = false,
+    opts = {
+      default_file_explorer = false,
+      columns = {},
+      view_options = {
+        show_hidden = true,
+      },
+    },
+  },
+  {
     "nvim-telescope/telescope.nvim",
     branch = "0.1.x",
     dependencies = {
       "nvim-lua/plenary.nvim",
       "cranberry-knight/telescope-compiler.nvim",
-      "nvim-telescope/telescope-file-browser.nvim",
       "debugloop/telescope-undo.nvim",
     },
     keys = {
@@ -194,22 +220,6 @@ require("lazy").setup({
           require("telescope.builtin").keymaps()
         end,
         desc = "[f]ind [k]eys",
-      },
-      {
-        "<leader>fe",
-        function()
-          require("telescope").extensions.file_browser.file_browser({
-            path = "%:p:h<cr>",
-          })
-        end,
-        desc = "Browse [f]iles [e]xplore around current one",
-      },
-      {
-        "<leader>fc",
-        function()
-          require("telescope").extensions.file_browser.file_browser()
-        end,
-        desc = "Browse [f]iles in [c]urrent working directory",
       },
       {
         "<leader>fb",
@@ -309,13 +319,6 @@ require("lazy").setup({
         },
       },
       extensions = {
-        file_browser = {
-          disable_devicons = true,
-          previewer = false,
-          theme = "ivy",
-          grouped = true,
-          hidden = true,
-        },
         undo = {},
       },
     },
