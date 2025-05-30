@@ -115,11 +115,11 @@ end
 
 require("lazy").setup({
   {
-    "savq/melange-nvim",
+    "aliqyan-21/darkvoid.nvim",
     lazy = false,
     priority = 1000,
     config = function()
-      vim.cmd("colorscheme melange")
+      vim.cmd("colorscheme darkvoid")
     end,
   },
   {
