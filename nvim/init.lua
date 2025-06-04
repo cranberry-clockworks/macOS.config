@@ -175,18 +175,18 @@ require("lazy").setup({
     "stevearc/oil.nvim",
     keys = {
       {
-        "<leader>fe",
+        "<leader>ec",
         function()
           require("oil").open()
         end,
-        desc = "Browse [f]iles [e]xplore around current one",
+        desc = "[E]xplore files around [c]urrent one",
       },
       {
-        "<leader>fc",
+        "<leader>ew",
         function()
           require("oil").open(vim.fn.getcwd())
         end,
-        desc = "Browse [f]iles in [c]urrent working directory",
+        desc = "[E]xplore files in current [w]orking directory",
       },
     },
     lazy = false,
@@ -234,6 +234,13 @@ require("lazy").setup({
           require("telescope.builtin").live_grep()
         end,
         desc = "[f]ind with [g]rep",
+      },
+      {
+        "<leader>fc",
+        function()
+          require("telescope.builtin").current_buffer_fuzzy_find()
+        end,
+        desc = "Fuzzy [f]ind in [c]urrent buffer",
       },
       {
         "<leader>sf",
