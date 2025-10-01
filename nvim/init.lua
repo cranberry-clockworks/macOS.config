@@ -919,10 +919,20 @@ map("<leader>thw", function()
 end, "[t]oggle [h]ard [w]rap")
 
 map("<leader>tsw", function()
-  vim.opt.textwidth = tonumber(0)
-  vim.opt.colorcolumn = tostring(0)
-  vim.cmd("set wrap!")
-  vim.notify("Enable text soft wrap")
+  vim.wo.wrap = not vim.wo.wrap
+  if vim.wo.wrap then
+    vim.wo.linebreak   = true
+    vim.wo.breakindent = true
+    vim.wo.showbreak = "↪ "
+    vim.opt.textwidth = tonumber(0)
+    vim.opt.colorcolumn = tostring(0)
+    vim.notify("Enable text soft wrap")
+  else
+    vim.wo.linebreak   = false
+    vim.wo.breakindent = false
+    vim.wo.showbreak = ""
+    vim.notify("Disable soft wrap")
+  end
 end, "[t]oggle [s]oft [w]rap")
 
 vim.api.nvim_create_autocmd({ "InsertLeave" }, {
@@ -951,5 +961,17 @@ vim.api.nvim_create_autocmd("FileType", {
     })
   end,
 })
+
+-- Split lines
+
+-- Put this in your init.lua or a sourced Lua file
+vim.keymap.set("n", "<leader>sl", function()
+  local char = vim.fn.input("Split by: ")
+  if char ~= "" then
+    local pattern = vim.fn.escape(char, "\\/.*$^~[]") -- escape special regex chars
+    vim.cmd("s/" .. pattern .. "/\\r/g")
+  end
+end, { desc = "Split current line by input chars" })
+
 
 require("dotnet-tools").setup()
